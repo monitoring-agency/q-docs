@@ -1,0 +1,7 @@
+site_name: Q Documentation
+theme:
+  name: material
+nav:
+  - Home: index.md
+  - Developer Resource:
+      - API: developer/api.md
