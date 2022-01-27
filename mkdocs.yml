@@ -4,4 +4,6 @@ theme:
 nav:
   - Home: index.md
   - Developer Resource:
-      - API: developer/api.md
+      - API: developer/api.md  - Developer Resources:
+      - API:
+          - REST API: developer/api/rest_api.md
