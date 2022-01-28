@@ -50,7 +50,7 @@ This endpoint is used to invalidate the current session for a logged-in user.
 
 ## Checks
 
-Checks are the heart of the monitoring engine. It defines how a specific metric should be gathered. 
+Checks are the heart of the monitoring engine. They define how a specific metric should be gathered. 
 The parameter `cmd` is executed by the `q-scheduler`. 
 ```json
 {
@@ -109,6 +109,15 @@ the given attributes (`id` is always returned, you don't need to specify it).
 | cmd       | String |   Yes    | Commandline to execute            |
 | comment   | String |   Yes    | Comment                           |
 
+If the check was created successfully, the `id` is returned in the `data` field:
+```json
+{
+  "success": true,
+  "message": "Object was created",
+  "data": 22
+}
+```
+
 ### Modify Check
 - Method: `PUT`
 - Endpoint: `/api/v1/checks/<id>`
@@ -133,6 +142,9 @@ You can modify each of the above parameters. Include it in the body with its new
 ### Delete Check
 - Method: `DELETE`
 - Endpoint: `/api/v1/checks/<id>`
+
+
+
 
 ## Parameter
 
