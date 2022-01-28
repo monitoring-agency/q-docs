@@ -11,6 +11,7 @@ Responses are in the following format:
 ```json
 {
   "success": true,
+  "message": "Some message",
   "data": [
     1, 2, 3
   ]
@@ -48,7 +49,17 @@ Every other endpoint requires a valid cookie to be sent to.
 
 This endpoint is used to invalidate the current session for a logged-in user.
 
-## Checks
+## Routine API
+This API provides access to actions instead of objects. Therefore, no RESTful API is used.
+
+### Update declaration of proxies
+
+### Generate configuration for proxy
+
+## Model API
+This API provides access to all model based objects like hosts, metrics, ... 
+
+### Checks
 
 Checks are the heart of the monitoring engine. They define how a specific metric should be gathered. 
 The parameter `cmd` is executed by the `q-scheduler`. 
@@ -61,7 +72,7 @@ The parameter `cmd` is executed by the `q-scheduler`.
 }
 ```
 
-### Get Checks
+#### Get Checks
 - Method: `GET`
 - Endpoint: `/api/v1/checks`
 
@@ -75,7 +86,7 @@ The parameter `cmd` is executed by the `q-scheduler`.
 Checks can be gathered using this endpoint. You can use the `filter` parameter to limit the results to a list of given ids.
 The `values` parameter can be used to retrieve only the given attributes (`id` is always returned, you don't need to specify it).
 
-### Get single Check
+#### Get single Check
 - Method: `GET`
 - Endpoint: `/api/v1/checks/<id>`
 
@@ -88,7 +99,7 @@ The `values` parameter can be used to retrieve only the given attributes (`id` i
 You can retrieve a single check using this endpoint. The `values` parameter can be used to retrieve only
 the given attributes (`id` is always returned, you don't need to specify it).
 
-### Create Check
+#### Create Check
 - Method: `POST`
 - Endpoint: `/api/v1/checks`
 
@@ -118,7 +129,7 @@ If the check was created successfully, the `id` is returned in the `data` field:
 }
 ```
 
-### Modify Check
+#### Modify Check
 - Method: `PUT`
 - Endpoint: `/api/v1/checks/<id>`
 
@@ -139,14 +150,29 @@ If the check was created successfully, the `id` is returned in the `data` field:
 
 You can modify each of the above parameters. Include it in the body with its new value.
 
-### Delete Check
+#### Delete Check
 - Method: `DELETE`
 - Endpoint: `/api/v1/checks/<id>`
 
+### Contacts
 
+### ContactGroups
 
+### GlobalVariables
 
-## Parameter
+### Hosts
+
+### HostTemplates
+
+### Metrics
+
+### MetricTemplates
+
+### Proxies
+
+### TimePeriods
+
+## Parameter definition
 
 ### List
 Sometimes it is necessary to provide lists as URL encoded parameter. There are two ways:
