@@ -53,8 +53,38 @@ This endpoint is used to invalidate the current session for a logged-in user.
 This API provides access to actions instead of objects. Therefore, no RESTful API is used.
 
 ### Update declaration of proxies
+- Method: `POST`
+- Endpoint: `/api/v1/updateDeclaration`
+
+**Parameter**
+
+| Parameter |           Type           | Optional | Description                                              |
+|:----------|:------------------------:|:--------:|:---------------------------------------------------------|
+| proxies   |   [List](#list) of int   |   Yes    | List of ids of proxies the declaration should be updated |
+
+With this endpoint, you can update the declaration of proxies to start scheduling new / updated hosts or metrics.
+If `proxies` is not specified, the declaration of **all** proxies is updated, 
+so be careful, when using in deployments with many proxies.
 
 ### Generate configuration for proxy
+- Method: `POST`
+- Endpoint: `/api/v1/generateConfiguration`
+
+**Parameter**
+
+| Parameter | Type | Optional | Description                                       |
+|:----------|:----:|:--------:|:--------------------------------------------------|
+| proxy     | int  |    No    | ID of the proxy to generate the configuration for |
+
+With this method, you can generate the configuration for a proxy. In the `data` field of the response,
+you'll find the command to execute on the proxy to apply the new configuration:
+```json
+{
+  "success": true,
+  "message": "Request was successful",
+  "data": "/usr/sbin/q-proxy/venv/bin/python3 /usr/sbin/q-proxy/manage.py init --b64 'eyJpZCI6IDEsICJuYW1lIjogImxvY2FsaG9zdCIsICJhZGRyZXNzIjogImh0dHA6Ly9leGFtcGxlLmNvbSIsICJwb3J0IjogODQ0MywgInNlY3JldCI6ICJzdXBlci1zZWNyZXQiLCAid2ViX3NlY3JldCI6ICJzdXBlci1zZWNyZXQiLCAid2ViX2FkZHJlc3MiOiAiaHR0cDovL2V4YW1wbGUuY29tIiwgIndlYl9wb3J0IjogNDQ0MywgImRpc2FibGVkIjogZmFsc2UsICJjb21tZW50IjogIiJ9'"
+}
+```
 
 ## Model API
 This API provides access to all model based objects like hosts, metrics, ... 
