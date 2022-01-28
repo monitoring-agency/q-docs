@@ -1,9 +1,13 @@
 site_name: Q Documentation
 theme:
   name: material
+repo_url: https://github.com/myOmikron/Q
+repo_name: myOmikron/Q
 nav:
   - Home: index.md
-  - Developer Resource:
-      - API: developer/api.md  - Developer Resources:
+  - Developer Resources:
       - API:
           - REST API: developer/api/rest_api.md
+      - Internal API:
+          - Q-Web: developer/api/internal_q_web.md
+          - Q-Proxy: developer/api/internal_q_proxy.md
