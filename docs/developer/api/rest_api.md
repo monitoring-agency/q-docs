@@ -108,10 +108,10 @@ The parameter `cmd` is executed by the `q-scheduler`.
 
 **Parameter**
 
-| Parameter |           Type           | Optional | Description                                         |
-|:----------|:------------------------:|:--------:|:----------------------------------------------------|
-| filter    |   [List](#list) of int   |   Yes    | List of ids of checks you want to retrieve          |
-| values    | [List](#list) of Strings |   Yes    | List of attributes of a check you want to retrieve. |
+| Parameter |         Type         | Optional | Description                                         |
+|:----------|:--------------------:|:--------:|:----------------------------------------------------|
+| filter    | [List](#list) of int |   Yes    | List of ids of checks you want to retrieve          |
+| values    | [List](#list) of str |   Yes    | List of attributes of a check you want to retrieve. |
 
 Checks can be gathered using this endpoint. You can use the `filter` parameter to limit the results to a list of given ids.
 The `values` parameter can be used to retrieve only the given attributes (`id` is always returned, you don't need to specify it).
@@ -122,9 +122,9 @@ The `values` parameter can be used to retrieve only the given attributes (`id` i
 
 **Parameter**
 
-| Parameter |           Type           | Optional | Description                                         |
-|:----------|:------------------------:|:--------:|:----------------------------------------------------|
-| values    | [List](#list) of Strings |   Yes    | List of attributes of a check you want to retrieve. |
+| Parameter |         Type         | Optional | Description                                         |
+|:----------|:--------------------:|:--------:|:----------------------------------------------------|
+| values    | [List](#list) of str |   Yes    | List of attributes of a check you want to retrieve. |
 
 You can retrieve a single check using this endpoint. The `values` parameter can be used to retrieve only
 the given attributes (`id` is always returned, you don't need to specify it).
@@ -144,11 +144,11 @@ the given attributes (`id` is always returned, you don't need to specify it).
 
 **Parameter**
 
-| Parameter |  Type  | Optional | Description                       |
-|:----------|:------:|:--------:|:----------------------------------|
-| name      | String |    No    | Name of the Check. Must be unique |
-| cmd       | String |   Yes    | Commandline to execute            |
-| comment   | String |   Yes    | Comment                           |
+| Parameter | Type | Optional | Description                       |
+|:----------|:----:|:--------:|:----------------------------------|
+| name      | str  |    No    | Name of the Check. Must be unique |
+| cmd       | str  |   Yes    | Commandline to execute            |
+| comment   | str  |   Yes    | Comment                           |
 
 If the check was created successfully, the `id` is returned in the `data` field:
 ```json
@@ -172,11 +172,11 @@ If the check was created successfully, the `id` is returned in the `data` field:
 
 **Parameter**
 
-| Parameter |  Type  | Description            |
-|:----------|:------:|:-----------------------|
-| name      | String | Name of the check      |
-| cmd       | String | Commandline to execute |
-| comment   | String | Comment                |
+| Parameter | Type | Description                       |
+|:----------|:----:|:----------------------------------|
+| name      | str  | Name of the check. Must be unique |
+| cmd       | str  | Commandline to execute            |
+| comment   | str  | Comment                           |
 
 You can modify each of the above parameters. Include it in the body with its new value.
 
@@ -185,6 +185,129 @@ You can modify each of the above parameters. Include it in the body with its new
 - Endpoint: `/api/v1/checks/<id>`
 
 ### Contacts
+Contacts represent the targets of notifications that should be sent. 
+```json
+{
+  "id": 1,
+  "name": "Max Mustermann",
+  "mail": "max@example.com",
+  "linked_host_notifications": [
+    1, 2
+  ],
+  "linked_host_notification_period": 1,
+  "linked_metric_notifications": [
+    3, 4
+  ],
+  "linked_metric_notification_period": 1,
+  "variables": {
+    "matrix": "@max:matrix.example.com"
+  },
+  "comment": ""
+}
+```
+
+#### Get Contacts
+- Method: `GET`
+- Endpoint: `/api/v1/contacts`
+
+**Parameter**
+
+| Parameter |         Type         | Optional | Description                                           |
+|:----------|:--------------------:|:--------:|:------------------------------------------------------|
+| filter    | [List](#list) of int |   Yes    | List of ids of contacts you want to retrieve          |
+| values    | [List](#list) of str |   Yes    | List of attributes of a contact you want to retrieve. |
+
+Contacts can be gathered using this endpoint. You can use the `filter` parameter to limit the results to a list of given ids.
+The `values` parameter can be used to retrieve only the given attributes (`id` is always returned, you don't need to specify it).
+
+#### Get single Contact
+- Method: `GET`
+- Endpoint: `/api/v1/contacts/<id>`
+
+**Parameter**
+
+| Parameter |         Type         | Optional | Description                                           |
+|:----------|:--------------------:|:--------:|:------------------------------------------------------|
+| values    | [List](#list) of str |   Yes    | List of attributes of a contact you want to retrieve. |
+
+You can retrieve a single contact using this endpoint. The `values` parameter can be used to retrieve only
+the given attributes (`id` is always returned, you don't need to specify it).
+
+#### Create Contact
+- Method: `POST`
+- Endpoint: `/api/v1/contacts`
+
+**Example body**
+```json
+{
+  "name": "Max Mustermann",
+  "mail": "max@example.com",
+  "linked_host_notifications": [
+    1, 2
+  ],
+  "linked_host_notification_period": 1,
+  "comment": "Max Mustermann from example corp."
+}
+```
+
+**Parameter**
+
+| Parameter                         |                     Type                      | Optional | Description                                                                 |
+|:----------------------------------|:---------------------------------------------:|:--------:|-----------------------------------------------------------------------------|
+| name                              |                      str                      |    No    | Name of the contact. Must be unique                                         |
+| mail                              |                      str                      |   Yes    | Mail address                                                                |
+| linked_host_notifications         |             [List](#list) of int              |   Yes    | List of ids of commands you want to execute if a host state change occurs   |
+| linked_host_notification_period   |                      int                      |   Yes    | TimePeriod in which host notifications should be sent                       |
+| linked_metric_notifications       |             [List](#list) of int              |   Yes    | List of ids of commands you want to execute if a metric state change occurs |
+| linked_metric_notification_period |                      int                      |   Yes    | TimePeriod in which metric notifications should be sent                     |
+| variables                         | [Dictionary](#dictionary) of<br/> `str : str` |   Yes    | Additional variables, they can be accessed by the notification commands     |
+| comment                           |                      str                      |   Yes    | Comment                                                                     |
+
+If the check was created successfully, the `id` is returned in the `data` field:
+```json
+{
+  "success": true,
+  "message": "Object was created",
+  "data": 22
+}
+```
+
+#### Modify Contact
+- Method: `PUT`
+- Endpoint: `/api/v1/contacts/<id>`
+
+**Example body**
+```json
+{
+  "name": "Maria Mustermann",
+  "mail": "maria@example.com",
+  "variables": {
+    "matrix": "@maria:matrix.example.com",
+    "mail2": "maria2@example.com"
+  }
+}
+```
+
+**Parameter**
+
+| Parameter                         |                     Type                      | Description                                                                 |
+|:----------------------------------|:---------------------------------------------:|:----------------------------------------------------------------------------|
+| name                              |                      str                      | Name of the contact. Must be unique                                         |
+| mail                              |                      str                      | Mail address                                                                |
+| linked_host_notifications         |             [List](#list) of int              | List of ids of commands you want to execute if a host state change occurs   |
+| linked_host_notification_period   |                      int                      | TimePeriod in which host notifications should be sent                       |
+| linked_metric_notifications       |             [List](#list) of int              | List of ids of commands you want to execute if a metric state change occurs |
+| linked_metric_notification_period |                      int                      | TimePeriod in which metric notifications should be sent                     |
+| variables                         | [Dictionary](#dictionary) of<br/> `str : str` | Additional variables, they can be accessed by the notification commands     |
+| comment                           |                      str                      | Comment                                                                     |
+
+
+You can modify each of the above parameters. Include it in the body with its new value.
+
+#### Delete Contact
+- Method: `DELETE`
+- Endpoint: `/api/v1/contacts/<id>`
+
 
 ### ContactGroups
 
@@ -205,7 +328,8 @@ You can modify each of the above parameters. Include it in the body with its new
 ## Parameter definition
 
 ### List
-Sometimes it is necessary to provide lists as URL encoded parameter. There are two ways:
+Sometimes it is necessary to provide lists as URL encoded parameter. 
+This is only necessary when a `GET` Request is made. There are two ways:
 
 ```
 /api/v1/endpoint?value=1&value=2&value=3
@@ -217,4 +341,11 @@ or
 /api/v1/endpoint?value=1,2,3
 ```
 
+### Dictionary
+Dictionary are key-value-pairs. The keys must be unique. Mostly used for variables.
 
+```json
+{
+  "key": "value"
+}
+```
