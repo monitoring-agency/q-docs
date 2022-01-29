@@ -3,8 +3,13 @@ theme:
   name: material
 repo_url: https://github.com/myOmikron/Q
 repo_name: myOmikron/Q
+markdown_extensions:
+  - admonition
 nav:
   - Home: index.md
+  - Deployment:
+    - Advanced:
+      - Deploy a multi-proxy system: deployment/advanced/multi_proxy.md
   - Developer Resources:
       - API:
           - REST API: developer/api/rest_api.md
