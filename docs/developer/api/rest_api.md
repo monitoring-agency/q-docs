@@ -506,15 +506,34 @@ You can modify each of the above parameters. Include it in the body with its new
 
 ### Hosts
 
+#### Delete Host
+- Method: `DELETE`
+- Endpoint: `/api/v1/hosts/<id>`
 ### HostTemplates
 
+#### Delete HostTemplate
+- Method: `DELETE`
+- Endpoint: `/api/v1/hosttemplates/<id>`
 ### Metrics
 
+#### Delete Metric
+- Method: `DELETE`
+- Endpoint: `/api/v1/metrics/<id>`
 ### MetricTemplates
 
+#### Delete MetricTemplate
+- Method: `DELETE`
+- Endpoint: `/api/v1/metrictemplates/<id>`
 ### Proxies
 
+#### Delete Proxy
+- Method: `DELETE`
+- Endpoint: `/api/v1/proxies/<id>`
 ### TimePeriods
+
+#### Delete TimePeriod
+- Method: `DELETE`
+- Endpoint: `/api/v1/timeperiods/<id>`
 
 ## Parameter definition
 
