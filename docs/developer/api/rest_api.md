@@ -263,7 +263,7 @@ the given attributes (`id` is always returned, you don't need to specify it).
 | variables                         | [Dictionary](#dictionary) of<br/> `str : str` |   Yes    | Additional variables, they can be accessed by the notification commands     |
 | comment                           |                      str                      |   Yes    | Comment                                                                     |
 
-If the check was created successfully, the `id` is returned in the `data` field:
+If the contact was created successfully, the `id` is returned in the `data` field:
 ```json
 {
   "success": true,
@@ -301,15 +301,102 @@ If the check was created successfully, the `id` is returned in the `data` field:
 | variables                         | [Dictionary](#dictionary) of<br/> `str : str` | Additional variables, they can be accessed by the notification commands     |
 | comment                           |                      str                      | Comment                                                                     |
 
-
 You can modify each of the above parameters. Include it in the body with its new value.
 
 #### Delete Contact
 - Method: `DELETE`
 - Endpoint: `/api/v1/contacts/<id>`
 
-
 ### ContactGroups
+Contact groups represent a list of contacts.
+
+```json
+{
+  "id": 3,
+  "name": "Mustermann notifications",
+  "comment": "Just a notification group",
+  "linked_contacts": [
+    1, 3, 5, 7
+  ]
+}
+```
+
+#### Get ContactGroups
+- Method: `GET`
+- Endpoint: `/api/v1/contactgroups`
+
+**Parameter**
+
+| Parameter |         Type         | Optional | Description                                                  |
+|:----------|:--------------------:|:--------:|:-------------------------------------------------------------|
+| filter    | [List](#list) of int |   Yes    | List of ids of contact groups you want to retrieve           |
+| values    | [List](#list) of str |   Yes    | List of attributes of a contact groups you want to retrieve. |
+
+Contact groups can be gathered using this endpoint. You can use the `filter` parameter to limit the results to a list of given ids.
+The `values` parameter can be used to retrieve only the given attributes (`id` is always returned, you don't need to specify it).
+
+#### Get single ContactGroup
+- Method: `GET`
+- Endpoint: `/api/v1/contactgroups/<id>`
+
+**Parameter**
+
+| Parameter |         Type         | Optional | Description                                                  |
+|:----------|:--------------------:|:--------:|:-------------------------------------------------------------|
+| values    | [List](#list) of str |   Yes    | List of attributes of a contact groups you want to retrieve. |
+
+You can retrieve a single contact group using this endpoint. The `values` parameter can be used to retrieve only
+the given attributes (`id` is always returned, you don't need to specify it).
+
+#### Create ContactGroup
+- Method: `POST`
+- Endpoint: `/api/v1/contactgroups`
+
+**Example body**
+```json
+{
+  "name": "Admin notification group",
+  "comment": "Admins: Max, Maria",
+  "linked_contacts": [
+    1, 3
+  ]
+}
+```
+
+**Parameter**
+
+| Parameter                         |         Type         | Optional | Description                               |
+|:----------------------------------|:--------------------:|:--------:|-------------------------------------------|
+| name                              |         str          |    No    | Name of the contact group. Must be unique |
+| linked_contacts                   | [List](#list) of int |   Yes    | Linked contacts of the group              |
+| comment                           |         str          |   Yes    | Comment                                   |
+
+If the contact group was created successfully, the `id` is returned in the `data` field:
+```json
+{
+  "success": true,
+  "message": "Object was created",
+  "data": 22
+}
+```
+
+#### Modify ContactGroup
+- Method: `PUT`
+- Endpoint: `/api/v1/contactgroups/<id>`
+
+**Example body**
+```json
+{
+  "comment": "",
+  "linked_contacts": [
+    1, 3, 7
+  ]
+}
+```
+
+#### Delete ContactGroup
+- Method: `DELETE`
+- Endpoint: `/api/v1/contactgroups/<id>`
 
 ### GlobalVariables
 
