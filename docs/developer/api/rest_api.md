@@ -394,11 +394,115 @@ If the contact group was created successfully, the `id` is returned in the `data
 }
 ```
 
+**Parameter**
+
+| Parameter        |         Type         | Description                              |
+|:-----------------|:--------------------:|:-----------------------------------------|
+| name             |         str          | Name of the contactgroup. Must be unique |
+| linked_contacts  | [List](#list) of int | List of contacts                         |
+| comment          |         str          | Comment                                  |
+
+You can modify each of the above parameters. Include it in the body with its new value.
+
 #### Delete ContactGroup
 - Method: `DELETE`
 - Endpoint: `/api/v1/contactgroups/<id>`
 
 ### GlobalVariables
+A global variable is used as a variable in commands. You may save things like your default ssh port or ssh user
+in a variable, so you don't have to apply them on each host or metric individually.
+
+```json
+{
+  "id": 62,
+  "key": "ssh_user",
+  "value": "q",
+  "comment": "default ssh user"
+}
+```
+
+#### Get GlobalVariables
+- Method: `GET`
+- Endpoint: `/api/v1/globalvariables`
+
+**Parameter**
+
+| Parameter |         Type         | Optional | Description                                                   |
+|:----------|:--------------------:|:--------:|:--------------------------------------------------------------|
+| filter    | [List](#list) of int |   Yes    | List of ids of global variables you want to retrieve          |
+| values    | [List](#list) of str |   Yes    | List of attributes of a global variable you want to retrieve. |
+
+Global variables can be gathered using this endpoint. You can use the `filter` parameter to limit the results to a list of given ids.
+The `values` parameter can be used to retrieve only the given attributes (`id` is always returned, you don't need to specify it).
+
+#### Get single GlobalVariable
+- Method: `GET`
+- Endpoint: `/api/v1/globalvariables/<id>`
+
+**Parameter**
+
+| Parameter |         Type         | Optional | Description                                                   |
+|:----------|:--------------------:|:--------:|:--------------------------------------------------------------|
+| values    | [List](#list) of str |   Yes    | List of attributes of a global variable you want to retrieve. |
+
+You can retrieve a single global variable using this endpoint. The `values` parameter can be used to retrieve only
+the given attributes (`id` is always returned, you don't need to specify it).
+
+
+#### Create GlobalVariable
+- Method: `POST`
+- Endpoint: `/api/v1/globalvariables`
+
+**Example body**
+```json
+{
+  "key": "ssh_port",
+  "value": "2222",
+  "comment": "default ssh port"
+}
+```
+
+**Parameter**
+
+| Parameter | Type | Optional | Description |
+|:----------|:----:|:--------:|-------------|
+| key       | str  |    No    | Key         |
+| value     | str  |    No    | Value       |
+| comment   | str  |   Yes    | Comment     |
+
+If the global variable was created successfully, the `id` is returned in the `data` field:
+```json
+{
+  "success": true,
+  "message": "Object was created",
+  "data": 22
+}
+```
+
+#### Modify GlobalVariable
+- Method: `PUT`
+- Endpoint: `/api/v1/globalvariables/<id>`
+
+**Example body**
+```json
+{
+  "value": "q-user"
+}
+```
+
+**Parameter**
+
+| Parameter | Type | Description |
+|:----------|:----:|:------------|
+| key       | str  | Key         |
+| value     | str  | Value       |
+| comment   | str  | Comment     |
+
+You can modify each of the above parameters. Include it in the body with its new value.
+
+#### Delete GlobalVariable
+- Method: `DELETE`
+- Endpoint: `/api/v1/globalvariables/<id>`
 
 ### Hosts
 
