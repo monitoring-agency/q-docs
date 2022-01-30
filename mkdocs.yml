@@ -10,6 +10,8 @@ nav:
   - Deployment:
     - Advanced:
       - Deploy a multi-proxy system: deployment/advanced/multi_proxy.md
+  - Usage:
+      - Variables: usage/variables.md
   - Developer Resources:
       - API:
           - REST API: developer/api/rest_api.md
