@@ -3,6 +3,7 @@ theme:
   name: material
 repo_url: https://github.com/myOmikron/Q
 repo_name: myOmikron/Q
+edit_uri: https://github.com/myOmikron/q-docs/edit/main/docs/
 markdown_extensions:
   - admonition
 nav:
