@@ -49,6 +49,19 @@ Every other endpoint requires a valid cookie to be sent to.
 
 This endpoint is used to invalidate the current session for a logged-in user.
 
+## Test
+- Method: `GET`
+- Endpoint: `/api/v1/test`
+
+This endpoint is used to check if the user is authenticated or not. Mainly intended for use in the frontend.
+
+**Response:**
+```json
+{
+  "success": true
+}
+```
+
 ## Routine API
 This API provides access to actions instead of objects. Therefore, no RESTful API is used.
 
