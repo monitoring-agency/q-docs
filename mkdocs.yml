@@ -11,6 +11,7 @@ nav:
   - Deployment:
     - Advanced:
       - Deploy a multi-proxy system: deployment/advanced/multi_proxy.md
+      - Cronjobs: deployment/advanced/cronjobs.md
   - Usage:
       - Variables: usage/variables.md
   - Developer Resources:
@@ -19,3 +20,5 @@ nav:
       - Internal API:
           - Q-Web: developer/api/internal_q_web.md
           - Q-Proxy: developer/api/internal_q_proxy.md
+      - Checks:
+          - Writing own checks: developer/checks/writing_checks.md
