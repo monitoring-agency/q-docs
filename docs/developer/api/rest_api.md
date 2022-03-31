@@ -518,10 +518,23 @@ You can modify each of the above parameters. Include it in the body with its new
 - Endpoint: `/api/v1/globalvariables/<id>`
 
 ### Hosts
+Hosts can represent actual hosts, but they don't have to. Think of them as a logical unit to aggregate multiple metrics.
+```json
+{
+  "id": 2
+  
+}
+```
+
+#### Get Hosts
+- Method: `GET`
+- Endpoint: `/api/v1/hosts`
+
 
 #### Delete Host
 - Method: `DELETE`
 - Endpoint: `/api/v1/hosts/<id>`
+
 ### HostTemplates
 
 #### Delete HostTemplate
